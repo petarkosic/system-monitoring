@@ -1,5 +1,5 @@
 {
-  "name": "log-service",
+  "name": "metrics-service",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -14,7 +14,7 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "@types/node": "^24.0.8",
+    "@types/node": "^24.0.10",
     "@types/uuid": "^10.0.0",
     "concurrently": "^9.2.0",
     "nodemon": "^3.1.10",
