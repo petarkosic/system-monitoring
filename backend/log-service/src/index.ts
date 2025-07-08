@@ -13,6 +13,20 @@ const logger = winston.createLogger({
 	transports: [new winston.transports.Console()],
 });
 
+interface Log {
+	logId: string;
+	timestamp: string;
+	service: string;
+	level: string;
+	type: string;
+	message: string;
+	method?: string;
+	path?: string;
+	statusCode?: number;
+	responseTime?: number;
+	httpMessage?: string;
+}
+
 const LOG_TEMPLATES = {
 	'auth-service': {
 		AUTH: [
@@ -68,7 +82,7 @@ const SERVICE_NAMES = Object.keys(
 	LOG_TEMPLATES
 ) as (keyof typeof LOG_TEMPLATES)[];
 
-function generateRandomLog() {
+function generateRandomLog(): Log {
 	const service =
 		SERVICE_NAMES[Math.floor(Math.random() * SERVICE_NAMES.length)];
 	const logTypes = Object.keys(
@@ -107,7 +121,7 @@ function generateRandomLog() {
 	}
 
 	return {
-		id: uuidv4(),
+		logId: uuidv4(),
 		timestamp: new Date().toISOString(),
 		service,
 		level,
@@ -121,13 +135,13 @@ type Error = {
 	message: string;
 };
 
-async function sendLogToCollector(log: any) {
+async function sendLogToCollector(log: Log) {
 	try {
 		await axios.post(COLLECTOR_SERVICE_URL, log, {
 			headers: { 'Content-Type': 'application/json' },
 		});
 
-		logger.info(`Log sent successfully: ${log.id}`);
+		logger.info(`Log sent successfully: ${log.logId}`);
 	} catch (error) {
 		const err = error as Error;
 		logger.error(`Failed to send log: ${err.message}`);

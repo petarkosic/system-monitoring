@@ -14,7 +14,7 @@ const logger = winston.createLogger({
 });
 
 interface Metric {
-	id: string;
+	metricId: string;
 	timestamp: string;
 	service: string;
 	cpu: number;
@@ -108,7 +108,7 @@ function generateMetric(): Metric {
 	const networkOut = Math.floor(networkIn * (0.7 + Math.random() * 0.3));
 
 	return {
-		id: uuidv4(),
+		metricId: uuidv4(),
 		timestamp: new Date().toISOString(),
 		service,
 		cpu,
@@ -135,7 +135,7 @@ async function sendMetricToCollector(metric: Metric) {
 			headers: { 'Content-Type': 'application/json' },
 		});
 
-		logger.info(`Metric sent successfully: ${metric.id}`);
+		logger.info(`Metric sent successfully: ${metric.metricId}`);
 	} catch (error) {
 		const err = error as Error;
 		logger.error(`Failed to send metric: ${err.message}`);

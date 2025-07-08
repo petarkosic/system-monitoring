@@ -17,7 +17,7 @@ const logger = winston.createLogger({
 type Severity = 'low' | 'medium' | 'high' | 'critical';
 
 interface SecurityEvent {
-	id: string;
+	eventId: string;
 	timestamp: string;
 	type:
 		| 'authentication'
@@ -201,7 +201,7 @@ function generateSecurityEvent(): SecurityEvent {
 	}
 
 	return {
-		id: uuidv4(),
+		eventId: uuidv4(),
 		timestamp: new Date().toISOString(),
 		type: eventType.type,
 		severity: severity as Severity,
@@ -278,7 +278,7 @@ async function sendEventToCollector(event: SecurityEvent) {
 			headers: { 'Content-Type': 'application/json' },
 		});
 
-		logger.info(`Security event sent successfully: ${event.id}`);
+		logger.info(`Security event sent successfully: ${event.eventId}`);
 	} catch (error) {
 		const err = error as Error;
 		logger.error(`Failed to send security event: ${err.message}`);
