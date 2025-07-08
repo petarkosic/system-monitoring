@@ -14,17 +14,17 @@ const logger = winston.createLogger({
 	transports: [new winston.transports.Console()],
 });
 
-type Severity = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+type Severity = 'low' | 'medium' | 'high' | 'critical';
 
 interface SecurityEvent {
 	id: string;
 	timestamp: string;
 	type:
-		| 'AUTHENTICATION'
-		| 'AUTHORIZATION'
-		| 'CONFIGURATION'
-		| 'DATA_ACCESS'
-		| 'THREAT';
+		| 'authentication'
+		| 'authorization'
+		| 'configuration'
+		| 'data_access'
+		| 'threat';
 	severity: Severity;
 	service: string;
 	message: string;
@@ -36,7 +36,7 @@ interface SecurityEvent {
 
 const SECURITY_EVENTS = [
 	{
-		type: 'AUTHENTICATION' as const,
+		type: 'authentication' as const,
 		messages: [
 			'Multiple failed login attempts for user {userId} from IP {ip} - account temporarily locked',
 			'Successful login for {userId} from new device ({deviceType}) in {location}',
@@ -44,11 +44,11 @@ const SECURITY_EVENTS = [
 			'User account {userId} locked due to suspicious activity patterns',
 			'MFA bypass attempt detected for {userId} using {method}',
 		],
-		severity: ['MEDIUM', 'HIGH' as const],
+		severity: ['medium', 'high' as const],
 		services: ['auth-service', 'api-gateway'],
 	},
 	{
-		type: 'AUTHORIZATION' as const,
+		type: 'authorization' as const,
 		messages: [
 			'Unauthorized access attempt to {endpoint} by {userId} from IP {ip}',
 			'Role escalation attempt detected - user {userId} tried to assign admin privileges',
@@ -56,11 +56,11 @@ const SECURITY_EVENTS = [
 			'Expired token used for access to {endpoint}',
 			"Privileged operation '{operation}' performed by {userId}",
 		],
-		severity: ['MEDIUM', 'HIGH' as const],
+		severity: ['medium', 'high' as const],
 		services: ['auth-service', 'api-gateway', 'admin-service'],
 	},
 	{
-		type: 'CONFIGURATION' as const,
+		type: 'configuration' as const,
 		messages: [
 			"Security policy '{policyName}' modified by {userId}",
 			"New admin user '{username}' created with elevated privileges",
@@ -68,11 +68,11 @@ const SECURITY_EVENTS = [
 			"Sensitive environment variable '{envVar}' accessed by {service}",
 			"CORS policy modified to allow origin '{origin}'",
 		],
-		severity: ['LOW', 'MEDIUM' as const],
+		severity: ['low', 'medium' as const],
 		services: ['auth-service', 'admin-service', 'config-service'],
 	},
 	{
-		type: 'DATA_ACCESS' as const,
+		type: 'data_access' as const,
 		messages: [
 			'Bulk data export initiated by {userId} - {count} records exported',
 			'Sensitive customer data accessed by {userId} without proper authorization',
@@ -80,11 +80,11 @@ const SECURITY_EVENTS = [
 			'Database backup downloaded to IP {ip}',
 			'GDPR data deletion request processed for user {email}',
 		],
-		severity: ['MEDIUM', 'HIGH' as const],
+		severity: ['medium', 'high' as const],
 		services: ['user-service', 'database-service', 'compliance-service'],
 	},
 	{
-		type: 'THREAT' as const,
+		type: 'threat' as const,
 		messages: [
 			'Brute force attack detected from IP {ip} - {count} attempts blocked',
 			"SQL injection attempt blocked in {service}: '{maliciousPayload}'",
@@ -92,7 +92,7 @@ const SECURITY_EVENTS = [
 			'Known malicious IP address {ip} blocked - associated with {threatType}',
 			'Credential stuffing attempt detected using {count} stolen credentials',
 		],
-		severity: ['HIGH', 'CRITICAL' as const],
+		severity: ['high', 'CRITICAL' as const],
 		services: ['api-gateway', 'waf-service', 'ids-service'],
 	},
 ];
