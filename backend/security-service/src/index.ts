@@ -92,7 +92,7 @@ const SECURITY_EVENTS = [
 			'Known malicious IP address {ip} blocked - associated with {threatType}',
 			'Credential stuffing attempt detected using {count} stolen credentials',
 		],
-		severity: ['high', 'CRITICAL' as const],
+		severity: ['high', 'critical' as const],
 		services: ['api-gateway', 'waf-service', 'ids-service'],
 	},
 ];
