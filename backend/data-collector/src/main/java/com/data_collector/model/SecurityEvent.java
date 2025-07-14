@@ -5,14 +5,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
 
 @Data
 @Document(collection = "security_events")
-public class SecurityEvent implements Serializable {
+public class SecurityEvent {
     @Id
     private String id;
     

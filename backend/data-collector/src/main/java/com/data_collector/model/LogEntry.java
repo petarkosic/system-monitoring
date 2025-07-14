@@ -5,13 +5,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 
 @Data
 @Document(collection = "logs")
-public class LogEntry implements Serializable {
+public class LogEntry {
     @Id
     private String id;
     
