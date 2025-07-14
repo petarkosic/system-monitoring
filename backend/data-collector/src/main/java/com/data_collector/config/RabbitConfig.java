@@ -17,7 +17,7 @@ public class RabbitConfig {
 
     @Bean
     public Queue logQueue() {
-        return new Queue(LOG_QUEUE, true, false, false);
+        return new Queue(LOG_QUEUE, true);
     }
 
     @Bean
