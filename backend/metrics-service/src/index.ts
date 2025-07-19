@@ -18,6 +18,7 @@ interface Metric {
 	timestamp: string;
 	service: string;
 	cpu: number;
+	baseMemory: number;
 	memory: number;
 	memoryUnits: 'MB' | 'GB';
 	disk?: number;
@@ -112,6 +113,7 @@ function generateMetric(): Metric {
 		timestamp: new Date().toISOString(),
 		service,
 		cpu,
+		baseMemory: pattern.baseMemory,
 		memory,
 		memoryUnits: 'MB',
 		disk: pattern.diskRange
