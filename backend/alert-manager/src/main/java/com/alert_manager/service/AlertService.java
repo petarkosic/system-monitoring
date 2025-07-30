@@ -56,4 +56,8 @@ public class AlertService {
     public List<Alert> getOpenAlerts() {
         return alertRepository.findByStatus(Alert.AlertStatus.OPEN);
     }
+
+    public List<Alert> getAllAlerts() {
+        return alertRepository.findAll();
+    }
 }
