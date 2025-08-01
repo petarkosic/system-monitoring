@@ -4,10 +4,10 @@ import { updateAlertStatusThunk } from '../features/alerts/alertsThunks';
 import type { Alert, AlertStatus } from '../types/alert';
 
 const severityClasses = {
-	CRITICAL: 'bg-red-100 border-red-500',
-	HIGH: 'bg-orange-100 border-orange-500',
-	MEDIUM: 'bg-yellow-100 border-yellow-500',
-	LOW: 'bg-green-100 border-green-500',
+	CRITICAL: 'bg-red-50 border-red-500',
+	HIGH: 'bg-orange-50 border-orange-500',
+	MEDIUM: 'bg-yellow-50 border-yellow-500',
+	LOW: 'bg-green-50 border-green-500',
 };
 
 const statusOptions: { value: AlertStatus; label: string }[] = [
@@ -39,12 +39,12 @@ export const AlertCard = ({ alert }: AlertCardProps) => {
 	return (
 		<div
 			className={`p-4 mb-4 rounded-lg border-l-4 ${severityClasses[
-				alert.severity
+				alert.severity.toUpperCase() as keyof typeof severityClasses
 			]!}`}
 		>
 			<div className='flex justify-between items-start'>
 				<div>
-					<h3 className='font-bold text-lg'>
+					<h3 className='font-bold text-gray-900 text-lg'>
 						{alert.ruleType} in {alert.service}
 					</h3>
 					<p className='text-sm text-gray-600'>
@@ -67,7 +67,7 @@ export const AlertCard = ({ alert }: AlertCardProps) => {
 				</span>
 			</div>
 
-			<p className='my-2'>{alert.message}</p>
+			<p className='my-2 text-gray-900'>{alert.message}</p>
 
 			<div className='flex flex-wrap gap-2 mt-3'>
 				{statusOptions.map((option) => (
@@ -77,7 +77,7 @@ export const AlertCard = ({ alert }: AlertCardProps) => {
 						disabled={alert.status === option.value}
 						className={`px-3 py-1 text-sm rounded ${
 							alert.status === option.value
-								? 'bg-gray-300 cursor-not-allowed'
+								? 'text-gray-500 !border-none !cursor-not-allowed'
 								: 'bg-white border border-gray-300 hover:bg-gray-50'
 						}`}
 					>
