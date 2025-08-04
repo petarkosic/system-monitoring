@@ -9,6 +9,11 @@ export const fetchAlerts = async (): Promise<Alert[]> => {
 	return response.data;
 };
 
+export const fetchAlertById = async (id: string): Promise<Alert> => {
+	const response = await axios.get<Alert>(`${API_BASE_URL}/alerts/${id}`);
+	return response.data;
+};
+
 export const updateAlertStatus = async (
 	alertId: string,
 	updateData: UpdateAlertDto

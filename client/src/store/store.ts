@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import alertsReducer from '../features/alerts/alertsSlice';
+import alertReducer from '../features/alert/alertSlice';
 
 export const store = configureStore({
 	reducer: {
 		alerts: alertsReducer,
+		alert: alertReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
