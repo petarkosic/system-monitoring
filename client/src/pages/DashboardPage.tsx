@@ -31,7 +31,7 @@ export const DashboardPage = () => {
 			<FilterTabs />
 
 			<div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
-				<div className='lg:col-span-3'>
+				<div className='lg:col-span-4'>
 					<div className='mb-4'>
 						<h2 className='font-semibold'>
 							{filteredAlerts.length}{' '}
