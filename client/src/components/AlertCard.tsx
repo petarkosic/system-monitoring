@@ -1,7 +1,6 @@
 import { format } from 'date-fns';
-import { useAppDispatch } from '../store/hooks';
-import { updateAlertStatusThunk } from '../features/alerts/alertsThunks';
-import type { Alert, AlertStatus } from '../types/alert';
+import type { Alert } from '../types/alert';
+import { Link } from 'react-router-dom';
 
 const severityClasses = {
 	CRITICAL: 'bg-red-50 border-red-500',
@@ -10,30 +9,18 @@ const severityClasses = {
 	LOW: 'bg-green-50 border-green-500',
 };
 
-const statusOptions: { value: AlertStatus; label: string }[] = [
-	{ value: 'OPEN', label: 'Open' },
-	{ value: 'IN_PROGRESS', label: 'In Progress' },
-	{ value: 'RESOLVED', label: 'Resolved' },
-	{ value: 'DISMISSED', label: 'Dismissed' },
-];
+const severityColors = {
+	CRITICAL: 'text-red-500',
+	HIGH: 'text-orange-500',
+	MEDIUM: 'text-yellow-500',
+	LOW: 'text-green-500',
+};
 
 interface AlertCardProps {
 	alert: Alert;
 }
 
 export const AlertCard = ({ alert }: AlertCardProps) => {
-	const dispatch = useAppDispatch();
-
-	const handleStatusChange = (newStatus: AlertStatus) => {
-		dispatch(
-			updateAlertStatusThunk(alert.id, {
-				status: newStatus,
-				assignedTo: '',
-				resolutionNotes: '',
-			})
-		);
-	};
-
 	if (!alert.id) return null;
 
 	return (
@@ -69,21 +56,25 @@ export const AlertCard = ({ alert }: AlertCardProps) => {
 
 			<p className='my-2 text-gray-900'>{alert.message}</p>
 
-			<div className='flex flex-wrap gap-2 mt-3'>
-				{statusOptions.map((option) => (
-					<button
-						key={option.value}
-						onClick={() => handleStatusChange(option.value)}
-						disabled={alert.status === option.value}
-						className={`px-3 py-1 text-sm rounded ${
-							alert.status === option.value
-								? 'text-gray-500 !border-none !cursor-not-allowed'
-								: 'bg-white border border-gray-300 hover:bg-gray-50'
-						}`}
+			<div className='flex flex-wrap items-center gap-2 mt-3'>
+				<p className='text-black'>
+					Severity:{' '}
+					<span
+						className={`font-bold ${severityColors[
+							alert?.severity.toUpperCase() as keyof typeof severityColors
+						]!}`}
 					>
-						{option.label}
-					</button>
-				))}
+						{alert.severity.toUpperCase()}
+					</span>
+				</p>
+				<Link
+					to={`/alerts/${alert.id}`}
+					className={
+						'ml-auto px-3 py-2 text-sm rounded bg-black border border-none hover:bg-gray-600 cursor-pointer'
+					}
+				>
+					Read More &gt;
+				</Link>
 			</div>
 		</div>
 	);
