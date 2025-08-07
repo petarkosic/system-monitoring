@@ -53,6 +53,17 @@ public class AlertService {
         }).orElseThrow(() -> new RuntimeException("Alert with id " + id + " not found"));
     }
 
+    public Alert updateNote(String id, String note) {
+        return alertRepository.findById(id).map(alert -> {
+            alert.setResolutionNotes(note);
+
+            Alert updatedAlert = alertRepository.save(alert);
+            webSocketService.sendAlert(updatedAlert);
+            
+            return updatedAlert;
+        }).orElseThrow(() -> new RuntimeException("Alert with id " + id + " not found"));
+    }
+
     public List<Alert> getOpenAlerts() {
         return alertRepository.findByStatus(Alert.AlertStatus.OPEN);
     }

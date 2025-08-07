@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,5 +39,10 @@ public class AlertController {
     @GetMapping("/{id}")
     public Alert getAlertById(@PathVariable String id) {
         return alertService.getAlertById(id);
+    }
+
+    @PatchMapping("/{id}")
+    public Alert updateNote(@PathVariable String id, @RequestBody String note) {
+        return alertService.updateNote(id, note);
     }
 }

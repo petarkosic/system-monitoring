@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { loadAlert } from '../features/alert/alertThunks';
+import { loadAlert, updateAlertNoteThunk } from '../features/alert/alertThunks';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { AlertStatus } from '../types/alert';
 import { updateAlertStatusThunk } from '../features/alerts/alertsThunks';
@@ -21,6 +21,8 @@ const statusOptions: { value: AlertStatus; label: string }[] = [
 ];
 
 export const AlertPage = () => {
+	const [note, setNote] = useState<string>('');
+
 	const dispatch = useAppDispatch();
 	const { alert } = useAppSelector((state) => state.alert);
 
@@ -35,6 +37,12 @@ export const AlertPage = () => {
 				resolutionNotes: '',
 			})
 		);
+		navigate(0);
+	};
+
+	const handleNoteSubmit = (note: string) => {
+		dispatch(updateAlertNoteThunk(alert.id, note));
+
 		navigate(0);
 	};
 
@@ -62,32 +70,44 @@ export const AlertPage = () => {
 					{format(new Date(alert?.createdAt || new Date()), 'PPpp')}
 				</p>
 
-				<table className='min-w-full text-left'>
+				<table className='min-w-full text-left table-fixed'>
 					<thead className='border-b'>
 						<tr>
-							<th className='px-4 py-2'>Rule Type</th>
-							<th className='px-4 py-2'>Message</th>
-							<th className='px-4 py-2'>Service</th>
-							<th className='px-4 py-2'>Type</th>
-							<th className='px-4 py-2'>Severity</th>
-							<th className='px-4 py-2'>Status</th>
-							<th className='px-4 py-2'>Note</th>
+							<th className='w-12 px-4 py-2'>Rule Type</th>
+							<th className='w-48 px-4 py-2'>Message</th>
+							<th className='w-32 px-4 py-2'>Service</th>
+							<th className='w-12 px-4 py-2'>Type</th>
+							<th className='w-12 px-4 py-2'>Severity</th>
+							<th className='w-12 px-4 py-2'>Status</th>
+							<th className='w-48 px-4 py-2'>Note</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td className='px-4 py-2'>{alert?.ruleType}</td>
-							<td className='px-4 py-2'>{alert?.message}</td>
+							<td className='px-4 py-2'>{alert?.payload?.message}</td>
 							<td className='px-4 py-2'>{alert?.service}</td>
 							<td className='px-4 py-2'>{alert?.payload?.type}</td>
 							<td className='px-4 py-2'>{alert?.severity}</td>
 							<td className='px-4 py-2'>{alert?.status}</td>
 							<td className='px-4 py-2'>
-								<textarea
-									style={{ resize: 'none', height: '100px' }}
-									maxLength={100}
-									className='w-full bg-gray-50'
-								></textarea>
+								{alert?.status === 'DISMISSED' ? (
+									<p>{alert?.resolutionNotes}</p>
+								) : (
+									<form
+										onSubmit={(e) => {
+											e.preventDefault();
+											handleNoteSubmit(note);
+										}}
+									>
+										<textarea
+											style={{ resize: 'none', height: '100px' }}
+											onChange={(e) => setNote(e.target.value)}
+											className='w-full bg-gray-50'
+										></textarea>
+										<button type='submit'>Submit</button>
+									</form>
+								)}
 							</td>
 						</tr>
 					</tbody>

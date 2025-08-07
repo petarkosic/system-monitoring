@@ -25,3 +25,15 @@ export const updateAlertStatus = async (
 
 	return response.data;
 };
+
+export const updateAlertNote = async (alertId: string, note: string) => {
+	const response = await axios.patch<Alert>(
+		`${API_BASE_URL}/alerts/${alertId}`,
+		note,
+		{
+			headers: { 'Content-Type': 'text/plain' },
+		}
+	);
+
+	return response.data;
+};

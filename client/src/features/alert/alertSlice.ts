@@ -20,6 +20,9 @@ const alertSlice = createSlice({
 		setAlert: (state, action: PayloadAction<Alert>) => {
 			state.alert = action.payload;
 		},
+		setNote: (state, action: PayloadAction<string>) => {
+			state.alert.resolutionNotes = action.payload;
+		},
 		setLoading: (state, action) => {
 			state.loading = action.payload;
 		},
@@ -29,5 +32,5 @@ const alertSlice = createSlice({
 	},
 });
 
-export const { setAlert, setLoading, setError } = alertSlice.actions;
+export const { setAlert, setNote, setLoading, setError } = alertSlice.actions;
 export default alertSlice.reducer;
