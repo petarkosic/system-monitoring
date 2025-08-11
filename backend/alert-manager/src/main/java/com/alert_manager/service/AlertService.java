@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.alert_manager.dto.AlertDto;
@@ -69,6 +70,6 @@ public class AlertService {
     }
 
     public List<Alert> getAllAlerts() {
-        return alertRepository.findAll();
+        return alertRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 }

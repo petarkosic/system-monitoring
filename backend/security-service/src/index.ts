@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const COLLECTOR_SERVICE_URL =
 	process.env.COLLECTOR_SERVICE_URL ||
-	'http://localhost:8080/api/security-events';
+	'http://data-collector:8081/api/security-events';
 
 const logger = winston.createLogger({
 	level: 'info',

@@ -18,7 +18,7 @@ import com.alert_manager.service.AlertService;
 
 @RestController
 @RequestMapping("/api/alerts")
-@CrossOrigin(origins ="http://localhost:5173")
+@CrossOrigin(origins ="http://localhost:3000")
 public class AlertController {
     private final AlertService alertService;
 

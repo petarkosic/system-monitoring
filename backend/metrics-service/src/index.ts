@@ -5,7 +5,7 @@ import * as winston from 'winston';
 import { v4 as uuidv4 } from 'uuid';
 
 const COLLECTOR_SERVICE_URL =
-	process.env.COLLECTOR_SERVICE_URL || 'http://localhost:8080/api/metrics';
+	process.env.COLLECTOR_SERVICE_URL || 'http://data-collector:8081/api/metrics';
 
 const logger = winston.createLogger({
 	level: 'info',

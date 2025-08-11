@@ -35,7 +35,7 @@ const alertsSlice = createSlice({
 			state.alerts = action.payload;
 		},
 		addAlert: (state, action: PayloadAction<Alert>) => {
-			state.alerts.unshift(action.payload);
+			state.alerts = [action.payload, ...state.alerts];
 		},
 		updateAlert: (
 			state,

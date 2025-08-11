@@ -20,10 +20,12 @@ public class WebSocketService {
     public void sendAlert(Alert alert) {
         WebSocketAlertDto webSocketAlertDto = new WebSocketAlertDto();
         
+        webSocketAlertDto.setId(alert.getId());
         webSocketAlertDto.setRuleType(alert.getRuleType());
         webSocketAlertDto.setMessage(alert.getMessage());
         webSocketAlertDto.setService(alert.getService());
         webSocketAlertDto.setSeverity(alert.getSeverity());
+        webSocketAlertDto.setStatus(alert.getStatus().name());
         webSocketAlertDto.setTimestamp(dateFormat.format(alert.getCreatedAt()));
         webSocketAlertDto.setSummary(alert.getRuleType() + " in " + alert.getService());
 

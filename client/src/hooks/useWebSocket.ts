@@ -21,7 +21,7 @@ export const useWebSocket = () => {
 				};
 
 				dispatch(
-					alert.id ? updateAlert(alert as Alert) : addAlert(alert as Alert)
+					alert.id ? addAlert(alert as Alert) : updateAlert(alert as Alert)
 				);
 			},
 			(error) => {
