@@ -6,12 +6,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alert_manager.dto.UpdateAlertDto;
 import com.alert_manager.model.Alert;
 import com.alert_manager.service.AlertService;
 
@@ -30,18 +28,18 @@ public class AlertController {
     public List<Alert> getAllAlerts() {
         return alertService.getAllAlerts();
     }
-
-    @PutMapping("/{id}")
-    public Alert updateAlert(@PathVariable String id, @RequestBody UpdateAlertDto updateAlertDto) {
-        return alertService.updateAlert(id, updateAlertDto);
-    }
-
+    
     @GetMapping("/{id}")
     public Alert getAlertById(@PathVariable String id) {
         return alertService.getAlertById(id);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{id}/status")
+    public Alert updateAlertStatus(@PathVariable String id, @RequestBody String status) {
+        return alertService.updateAlertStatus(id, status);
+    }
+
+    @PatchMapping("/{id}/note")
     public Alert updateNote(@PathVariable String id, @RequestBody String note) {
         return alertService.updateNote(id, note);
     }

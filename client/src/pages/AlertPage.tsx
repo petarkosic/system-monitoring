@@ -30,13 +30,8 @@ export const AlertPage = () => {
 	const navigate = useNavigate();
 
 	const handleStatusChange = (newStatus: AlertStatus) => {
-		dispatch(
-			updateAlertStatusThunk(alert.id, {
-				status: newStatus,
-				assignedTo: '',
-				resolutionNotes: '',
-			})
-		);
+		dispatch(updateAlertStatusThunk(alert.id, newStatus));
+
 		navigate(0);
 	};
 
@@ -91,17 +86,23 @@ export const AlertPage = () => {
 							<td className='px-4 py-2'>{alert?.severity}</td>
 							<td className='px-4 py-2'>{alert?.status}</td>
 							<td className='px-4 py-2'>
-								{alert?.status === 'DISMISSED' ? (
-									<p>{alert?.resolutionNotes}</p>
+								{alert?.resolutionNotes || alert?.status === 'DISMISSED' ? (
+									<div className='p-2 bg-gray-100 rounded'>
+										{alert?.resolutionNotes || 'No notes'}
+									</div>
 								) : (
 									<form
 										onSubmit={(e) => {
 											e.preventDefault();
-											handleNoteSubmit(note);
+											if (note.trim()) {
+												handleNoteSubmit(note);
+												setNote('');
+											}
 										}}
 									>
 										<textarea
 											style={{ resize: 'none', height: '100px' }}
+											value={note}
 											onChange={(e) => setNote(e.target.value)}
 											className='w-full bg-gray-50'
 										></textarea>

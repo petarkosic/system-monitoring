@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Alert, UpdateAlertDto } from '../types/alert';
+import type { Alert, AlertStatus } from '../types/alert';
 
 const API_BASE_URL =
 	import.meta.env.VITE_API_BASE_URL || 'http://localhost:8083/api';
@@ -16,11 +16,14 @@ export const fetchAlertById = async (id: string): Promise<Alert> => {
 
 export const updateAlertStatus = async (
 	alertId: string,
-	updateData: UpdateAlertDto
+	status: AlertStatus
 ): Promise<Alert> => {
-	const response = await axios.put<Alert>(
-		`${API_BASE_URL}/alerts/${alertId}`,
-		updateData
+	const response = await axios.patch<Alert>(
+		`${API_BASE_URL}/alerts/${alertId}/status`,
+		status,
+		{
+			headers: { 'Content-Type': 'text/plain' },
+		}
 	);
 
 	return response.data;
@@ -28,7 +31,7 @@ export const updateAlertStatus = async (
 
 export const updateAlertNote = async (alertId: string, note: string) => {
 	const response = await axios.patch<Alert>(
-		`${API_BASE_URL}/alerts/${alertId}`,
+		`${API_BASE_URL}/alerts/${alertId}/note`,
 		note,
 		{
 			headers: { 'Content-Type': 'text/plain' },

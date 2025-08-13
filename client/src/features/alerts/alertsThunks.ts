@@ -22,29 +22,18 @@ export const loadInitialAlerts = () => async (dispatch: Dispatch) => {
 };
 
 export const updateAlertStatusThunk =
-	(
-		alertId: string,
-		updateData: {
-			status: AlertStatus;
-			assignedTo?: string;
-			resolutionNotes?: string;
-		}
-	) =>
-	async (dispatch: Dispatch) => {
+	(alertId: string, status: AlertStatus) => async (dispatch: Dispatch) => {
 		try {
 			dispatch(setLoading(true));
 
 			dispatch(
 				updateAlert({
 					id: alertId,
-					status: updateData.status,
-					assignedTo: '',
-					resolutionNotes: '',
-					updatedAt: new Date().toISOString(),
+					status: status,
 				} as Alert)
 			);
 
-			await updateAlertStatus(alertId, updateData);
+			await updateAlertStatus(alertId, status);
 
 			dispatch(setLoading(false));
 		} catch (error) {

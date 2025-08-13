@@ -1,0 +1,34 @@
+{
+	"configurations": [
+		{
+			"type": "java",
+			"name": "Spring Boot-DataCollectorApplication<data-collector>",
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"mainClass": "com.data_collector.DataCollectorApplication",
+			"projectName": "data-collector",
+			"args": "",
+			"envFile": "${workspaceFolder}/.env"
+		},
+		{
+			"type": "java",
+			"name": "Spring Boot-RuleEngineApplication<rule-engine>",
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"mainClass": "com.rule_engine.RuleEngineApplication",
+			"projectName": "rule-engine",
+			"args": "",
+			"envFile": "${workspaceFolder}/.env"
+		},
+		{
+			"type": "java",
+			"name": "Spring Boot-AlertManagerApplication<alert-manager>",
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"mainClass": "com.alert_manager.AlertManagerApplication",
+			"projectName": "alert-manager",
+			"args": "",
+			"envFile": "${workspaceFolder}/.env"
+		}
+	]
+}

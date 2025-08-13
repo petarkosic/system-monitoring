@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.alert_manager.dto.AlertDto;
-import com.alert_manager.dto.UpdateAlertDto;
 import com.alert_manager.model.Alert;
 import com.alert_manager.repository.AlertRepository;
 
@@ -40,27 +39,26 @@ public class AlertService {
         return alertRepository.findById(id).orElseThrow(() -> new RuntimeException("Alert with id " + id + " not found"));
     }
 
-    public Alert updateAlert(String id, UpdateAlertDto updateAlertDto) {
+    public Alert updateAlertStatus(String id, String status) {
         return alertRepository.findById(id).map(alert -> {
-            alert.setStatus(updateAlertDto.getStatus());
-            alert.setAssignedTo(updateAlertDto.getAssignedTo());
-            alert.setResolutionNotes(updateAlertDto.getResolutionNotes());
+            alert.setStatus(Alert.AlertStatus.valueOf(status));
             alert.setUpdatedAt(new Date());
-
+            
             Alert updatedAlert = alertRepository.save(alert);
             webSocketService.sendAlert(updatedAlert);
 
             return updatedAlert;
         }).orElseThrow(() -> new RuntimeException("Alert with id " + id + " not found"));
     }
-
+    
     public Alert updateNote(String id, String note) {
         return alertRepository.findById(id).map(alert -> {
             alert.setResolutionNotes(note);
-
+            alert.setUpdatedAt(new Date());
+            
             Alert updatedAlert = alertRepository.save(alert);
             webSocketService.sendAlert(updatedAlert);
-            
+
             return updatedAlert;
         }).orElseThrow(() -> new RuntimeException("Alert with id " + id + " not found"));
     }
