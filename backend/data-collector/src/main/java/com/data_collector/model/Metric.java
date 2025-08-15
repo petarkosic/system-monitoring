@@ -22,7 +22,9 @@ public class Metric {
     
     @Indexed
     private String service;
+    
     private Double cpu;
+    private Integer baseMemory;
     private Double memory;
     private String memoryUnits;
     private Double disk;

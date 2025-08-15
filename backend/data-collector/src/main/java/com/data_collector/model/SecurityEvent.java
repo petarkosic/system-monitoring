@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
-import java.util.Map;
 import java.util.UUID;
 
 @Data
@@ -23,15 +22,48 @@ public class SecurityEvent {
     
     @Indexed
     private String type;
+
+    @Indexed
     private String severity;
+
+    @Indexed
     private String service;
     private String message;
     
     private String ipAddress;
     private String userAgent;
     private String userId;
-    private Map<String, Object> details;
-    
+    private Details details;
+    private String status = "open";    
+
+    @Data
+    public static class Details {
+        private String requestId;
+        private String location;
+        private Integer threatScore;
+        private String sessionId;
+        private Integer sourcePort;
+        private Integer destinationPort;
+        private Integer bytesTransferred;
+        private String fileHash;
+        private String deviceType;
+        private String method;
+        private String endpoint;
+        private String serviceAccount;
+        private String operation;
+        private String policyName;
+        private String username;
+        private String envVar;
+        private String service;
+        private String origin;
+        private String email;
+        private String maliciousPayload;
+        private String payload;
+        private String threatType;
+        private String domain;
+        private String reportName;
+    }
+
     @Indexed
     private Instant createdAt = Instant.now();
 }

@@ -22,7 +22,10 @@ public class LogEntry {
     
     @Indexed
     private String service;
+
+    @Indexed
     private String level;
+    
     private String type;
     private String message;
     
