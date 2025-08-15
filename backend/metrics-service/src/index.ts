@@ -3,6 +3,7 @@ config();
 import axios from 'axios';
 import * as winston from 'winston';
 import { v4 as uuidv4 } from 'uuid';
+import { faker } from '@faker-js/faker';
 
 const COLLECTOR_SERVICE_URL =
 	process.env.COLLECTOR_SERVICE_URL || 'http://data-collector:8081/api/metrics';
@@ -91,22 +92,21 @@ const SERVICE_PATTERNS: Record<
 };
 
 function generateMetric(): Metric {
-	const service = SERVICES[Math.floor(Math.random() * SERVICES.length)];
+	const service = faker.helpers.arrayElement(SERVICES);
 	const pattern = SERVICE_PATTERNS[service];
 
-	const cpu = Math.floor(
-		Math.random() * (pattern.cpuRange[1] - pattern.cpuRange[0]) +
-			pattern.cpuRange[0]
+	const cpu = faker.number.int({
+		min: pattern.cpuRange[0],
+		max: pattern.cpuRange[1],
+	});
+	const memory = pattern.baseMemory + faker.number.int({ min: 0, max: 512 });
+	const networkIn = faker.number.int({
+		min: pattern.networkRange[0],
+		max: pattern.networkRange[1],
+	});
+	const networkOut = Math.floor(
+		networkIn * faker.number.float({ min: 0.7, max: 1.0 })
 	);
-
-	const memory = pattern.baseMemory + Math.floor(Math.random() * 512);
-
-	const networkIn = Math.floor(
-		Math.random() * (pattern.networkRange[1] - pattern.networkRange[0]) +
-			pattern.networkRange[0]
-	);
-
-	const networkOut = Math.floor(networkIn * (0.7 + Math.random() * 0.3));
 
 	return {
 		metricId: uuidv4(),
@@ -117,17 +117,17 @@ function generateMetric(): Metric {
 		memory,
 		memoryUnits: 'MB',
 		disk: pattern.diskRange
-			? Math.floor(
-					Math.random() * (pattern.diskRange[1] - pattern.diskRange[0]) +
-						pattern.diskRange[0]
-			  )
-			: Math.floor(Math.random() * 40 + 20),
+			? faker.number.int({
+					min: pattern.diskRange[0],
+					max: pattern.diskRange[1],
+			  })
+			: faker.number.int({ min: 20, max: 60 }),
 		networkIn,
 		networkOut,
 	};
 }
 
-type Error = {
+type ErrorType = {
 	message: string;
 };
 
@@ -136,10 +136,9 @@ async function sendMetricToCollector(metric: Metric) {
 		await axios.post(COLLECTOR_SERVICE_URL, metric, {
 			headers: { 'Content-Type': 'application/json' },
 		});
-
 		logger.info(`Metric sent successfully: ${metric.metricId}`);
 	} catch (error) {
-		const err = error as Error;
+		const err = error as ErrorType;
 		logger.error(`Failed to send metric: ${err.message}`);
 	}
 }
@@ -150,10 +149,10 @@ function startMetricGeneration() {
 			const metric = generateMetric();
 			await sendMetricToCollector(metric);
 
-			const delay = Math.random() * 2000;
+			const delay = faker.number.int({ min: 500, max: 2000 });
 			await new Promise((resolve) => setTimeout(resolve, delay));
 		}
-	}, 5000);
+	}, 3000);
 }
 
 startMetricGeneration();

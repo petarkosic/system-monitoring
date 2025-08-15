@@ -9,6 +9,7 @@
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
   },
   "dependencies": {
+    "@faker-js/faker": "^9.9.0",
     "axios": "^1.11.0",
     "dotenv": "^17.0.1",
     "uuid": "^11.1.0",
