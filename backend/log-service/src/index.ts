@@ -21,11 +21,13 @@ interface Log {
 	level: string;
 	type: string;
 	message: string;
-	method?: string;
-	path?: string;
-	statusCode?: number;
-	responseTime?: number;
-	httpMessage?: string;
+	httpDetails?: {
+		method?: string;
+		path?: string;
+		statusCode?: number;
+		responseTime?: number;
+		httpMessage?: string;
+	};
 }
 
 const SERVICE_NAMES = [
@@ -43,7 +45,7 @@ function generateRandomLog(): Log {
 	const type = faker.helpers.arrayElement(LOG_TYPES);
 
 	let message = '';
-	let httpDetails = {};
+	let httpDetails: Log['httpDetails'] = {};
 
 	if (faker.datatype.boolean()) {
 		const method = faker.helpers.arrayElement(['GET', 'POST', 'PUT', 'DELETE']);
@@ -110,7 +112,9 @@ function generateRandomLog(): Log {
 		level,
 		type,
 		message,
-		...httpDetails,
+		httpDetails: {
+			...httpDetails,
+		},
 	};
 }
 

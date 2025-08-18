@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Data
 @Document(collection = "metrics")
@@ -15,7 +14,7 @@ public class Metric {
     private String id;
     
     @Indexed
-    private String metricId = UUID.randomUUID().toString();
+    private String metricId;
     
     @Indexed
     private Instant timestamp;

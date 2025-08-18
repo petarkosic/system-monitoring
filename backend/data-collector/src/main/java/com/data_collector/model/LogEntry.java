@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Data
 @Document(collection = "logs")
@@ -15,7 +14,7 @@ public class LogEntry {
     private String id;
     
     @Indexed
-    private String logId = UUID.randomUUID().toString();
+    private String logId;
     
     @Indexed
     private Instant timestamp;
@@ -29,11 +28,16 @@ public class LogEntry {
     private String type;
     private String message;
     
-    private String method;
-    private String path;
-    private Integer statusCode;
-    private Integer responseTime;
-    private String httpMessage;
+    private HttpDetails httpDetails;
+
+    @Data
+    public static class HttpDetails {
+        private String method;
+        private String path;
+        private Integer statusCode;
+        private Integer responseTime;
+        private String httpMessage;
+    }
     
     @Indexed
     private Instant createdAt = Instant.now();

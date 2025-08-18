@@ -18,7 +18,7 @@ public class LogRuleService {
     public void processLog(LogEntry log) {
         if (isErrorLog(log)) {
             alertService.sendAlert(new AlertMessage(
-                "LOG_ERROR",
+                log.getType(),
                 "Error log detected from " + log.getService(),
                 log
             ));

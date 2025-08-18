@@ -1,12 +1,12 @@
 package com.data_collector.model;
 
-import lombok.Data;
+import java.time.Instant;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.Instant;
-import java.util.UUID;
+import lombok.Data;
 
 @Data
 @Document(collection = "security_events")
@@ -15,7 +15,7 @@ public class SecurityEvent {
     private String id;
     
     @Indexed
-    private String eventId = UUID.randomUUID().toString();
+    private String eventId;
     
     @Indexed
     private Instant timestamp;

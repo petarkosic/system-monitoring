@@ -26,9 +26,10 @@ public class LogController {
 
     @PostMapping
     public ResponseEntity<LogEntry> saveLog(@RequestBody LogEntry logEntry) {
-        rabbitMQService.sendLogToQueue(logEntry);
+        LogEntry savedLog = logService.saveLog(logEntry);
+        rabbitMQService.sendLogToQueue(savedLog);
         
-        return ResponseEntity.ok(logService.saveLog(logEntry));
+        return ResponseEntity.ok(savedLog);
     }
 
     @GetMapping("/service/{service}")

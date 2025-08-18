@@ -26,9 +26,10 @@ public class SecurityEventController {
 
     @PostMapping
     public ResponseEntity<SecurityEvent> saveSecurityEvent(@RequestBody SecurityEvent event) {
-        rabbitMQService.sendSecurityEventToQueue(event);
+        SecurityEvent savedEvent = securityEventService.saveSecurityEvent(event);
+        rabbitMQService.sendSecurityEventToQueue(savedEvent);
 
-        return ResponseEntity.ok(securityEventService.saveSecurityEvent(event));
+        return ResponseEntity.ok(savedEvent);
     }
 
     @GetMapping("/type/{type}")

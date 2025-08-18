@@ -27,9 +27,10 @@ public class MetricController {
 
     @PostMapping
     public ResponseEntity<Metric> saveMetric(@RequestBody Metric metric) {
-        rabbitMQService.sendMetricsToQueue(metric);
+        Metric savedMetric = metricService.saveMetric(metric);
+        rabbitMQService.sendMetricsToQueue(savedMetric);
 
-        return ResponseEntity.ok(metricService.saveMetric(metric));
+        return ResponseEntity.ok(savedMetric);
     }
 
     @GetMapping("/service/{service}")
