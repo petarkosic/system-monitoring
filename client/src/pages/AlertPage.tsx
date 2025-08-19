@@ -82,8 +82,10 @@ export const AlertPage = () => {
 							<td className='px-4 py-2'>{alert?.ruleType}</td>
 							<td className='px-4 py-2'>{alert?.payload?.message}</td>
 							<td className='px-4 py-2'>{alert?.service}</td>
-							<td className='px-4 py-2'>{alert?.payload?.type}</td>
-							<td className='px-4 py-2'>{alert?.severity}</td>
+							<td className='px-4 py-2'>
+								{alert?.payload?.type.toUpperCase()}
+							</td>
+							<td className='px-4 py-2'>{alert?.severity.toUpperCase()}</td>
 							<td className='px-4 py-2'>{alert?.status}</td>
 							<td className='px-4 py-2'>
 								{alert?.resolutionNotes || alert?.status === 'DISMISSED' ? (
@@ -101,12 +103,18 @@ export const AlertPage = () => {
 										}}
 									>
 										<textarea
+											name='note'
 											style={{ resize: 'none', height: '100px' }}
 											value={note}
 											onChange={(e) => setNote(e.target.value)}
 											className='w-full bg-gray-50'
 										></textarea>
-										<button type='submit'>Submit</button>
+										<button
+											type='submit'
+											className='mt-2 px-4 py-2 bg-black text-white hover:bg-gray-600 rounded cursor-pointer'
+										>
+											Submit
+										</button>
 									</form>
 								)}
 							</td>

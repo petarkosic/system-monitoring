@@ -14,7 +14,7 @@ const logger = winston.createLogger({
 	transports: [new winston.transports.Console()],
 });
 
-type Severity = 'low' | 'medium' | 'high' | 'critical';
+type Severity = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
 
 interface SecurityEvent {
 	eventId: string;
@@ -46,7 +46,7 @@ const SECURITY_EVENTS = [
 			'Biometric login attempt failed for {userId} from {location}',
 			'Unrecognized browser login detected for {userId} from {ip}',
 		],
-		severity: ['medium', 'high' as const],
+		severity: ['MEDIUM', 'HIGH' as const],
 		services: ['auth-service', 'api-gateway'],
 	},
 	{
@@ -60,7 +60,7 @@ const SECURITY_EVENTS = [
 			'OAuth token misuse detected for {userId}',
 			'Access to restricted report {reportName} denied for {userId}',
 		],
-		severity: ['medium', 'high' as const],
+		severity: ['MEDIUM', 'HIGH' as const],
 		services: ['auth-service', 'api-gateway', 'admin-service'],
 	},
 	{
@@ -74,7 +74,7 @@ const SECURITY_EVENTS = [
 			'SSL certificate for {domain} expired',
 			'DNS settings changed for {domain} by {userId}',
 		],
-		severity: ['low', 'medium' as const],
+		severity: ['LOW', 'MEDIUM' as const],
 		services: ['auth-service', 'admin-service', 'config-service'],
 	},
 	{
@@ -88,7 +88,7 @@ const SECURITY_EVENTS = [
 			'HIPAA-protected data accessed by {userId} from {location}',
 			'Large file transfer to external IP {ip} detected',
 		],
-		severity: ['medium', 'high' as const],
+		severity: ['MEDIUM', 'HIGh' as const],
 		services: ['user-service', 'database-service', 'compliance-service'],
 	},
 	{
@@ -102,7 +102,7 @@ const SECURITY_EVENTS = [
 			'DDoS attack detected targeting {service} - {count} requests per second',
 			'Ransomware signature detected in uploaded file by {userId}',
 		],
-		severity: ['high', 'critical' as const],
+		severity: ['HIGH', 'CRITICAL' as const],
 		services: ['api-gateway', 'waf-service', 'ids-service'],
 	},
 ];
@@ -169,6 +169,8 @@ function generateSecurityEvent(): SecurityEvent {
 			'DataRetention',
 		][Math.floor(Math.random() * 5)],
 		username: `admin-${Math.floor(Math.random() * 100)}`,
+		count: Math.floor(Math.random() * 10000).toString(),
+		minutes: Math.floor(Math.random() * 60 + 1).toString(),
 		envVar: [
 			'DB_PASSWORD',
 			'API_SECRET',

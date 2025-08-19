@@ -24,22 +24,23 @@ export const AlertCard = ({ alert }: AlertCardProps) => {
 	if (!alert.id) return null;
 
 	return (
-		<div
-			className={`p-4 mb-4 rounded-lg border-l-4 ${severityClasses[
-				alert?.severity?.toUpperCase() as keyof typeof severityClasses
-			]!}`}
-		>
-			<div className='flex justify-between items-start'>
-				<div>
-					<h3 className='font-bold text-gray-900 text-lg'>
-						{alert.ruleType} in {alert.service}
-					</h3>
-					<p className='text-sm text-gray-600'>
-						{format(new Date(alert.createdAt), 'PPpp')}
-					</p>
-				</div>
-				<span
-					className={`px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800
+		<Link to={`/alerts/${alert.id}`} className='block cursor-pointer'>
+			<div
+				className={`p-4 mb-4 rounded-lg border-l-4 ${severityClasses[
+					alert?.severity?.toUpperCase() as keyof typeof severityClasses
+				]!}`}
+			>
+				<div className='flex justify-between items-start'>
+					<div>
+						<h3 className='font-bold text-gray-900 text-lg'>
+							{alert.ruleType} in {alert.service}
+						</h3>
+						<p className='text-sm text-gray-600'>
+							{format(new Date(alert.createdAt), 'PPpp')}
+						</p>
+					</div>
+					<span
+						className={`px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800
 							${
 								alert.status === 'IN_PROGRESS'
 									? 'bg-purple-100 text-purple-800'
@@ -49,33 +50,26 @@ export const AlertCard = ({ alert }: AlertCardProps) => {
 									? 'bg-red-100 text-red-800'
 									: ''
 							}`}
-				>
-					{alert.status ?? 'OPEN'}
-				</span>
-			</div>
-
-			<p className='my-2 text-gray-900'>{alert.message}</p>
-
-			<div className='flex flex-wrap items-center gap-2 mt-3'>
-				<p className='text-black'>
-					Severity:{' '}
-					<span
-						className={`font-bold ${severityColors[
-							alert?.severity?.toUpperCase() as keyof typeof severityColors
-						]!}`}
 					>
-						{alert?.severity?.toUpperCase()}
+						{alert.status ?? 'OPEN'}
 					</span>
-				</p>
-				<Link
-					to={`/alerts/${alert.id}`}
-					className={
-						'ml-auto px-3 py-2 text-sm rounded bg-black border border-none hover:bg-gray-600 cursor-pointer'
-					}
-				>
-					Read More &gt;
-				</Link>
+				</div>
+
+				<p className='my-2 text-gray-900'>{alert.message}</p>
+
+				<div className='flex flex-wrap items-center gap-2 mt-3'>
+					<p className='text-black'>
+						Severity:{' '}
+						<span
+							className={`font-bold ${severityColors[
+								alert?.severity?.toUpperCase() as keyof typeof severityColors
+							]!}`}
+						>
+							{alert?.severity?.toUpperCase()}
+						</span>
+					</p>
+				</div>
 			</div>
-		</div>
+		</Link>
 	);
 };
