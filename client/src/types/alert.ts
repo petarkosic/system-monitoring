@@ -5,6 +5,7 @@ export interface Alert {
 	service: string;
 	severity: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
 	status: AlertStatus;
+	timestamp: string;
 	assignedTo?: string;
 	resolutionNotes?: string;
 	payload: Record<string, string>;
@@ -23,15 +24,4 @@ export interface UpdateAlertDto {
 	status?: AlertStatus;
 	assignedTo?: string;
 	resolutionNotes?: string;
-}
-
-export interface WebSocketAlert {
-	id: string;
-	ruleType: string;
-	message: string;
-	service: string;
-	severity: string;
-	status: string;
-	timestamp: string;
-	summary: string;
 }

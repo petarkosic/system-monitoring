@@ -26,7 +26,7 @@ export const AlertCard = ({ alert }: AlertCardProps) => {
 	return (
 		<div
 			className={`p-4 mb-4 rounded-lg border-l-4 ${severityClasses[
-				alert.severity.toUpperCase() as keyof typeof severityClasses
+				alert?.severity?.toUpperCase() as keyof typeof severityClasses
 			]!}`}
 		>
 			<div className='flex justify-between items-start'>
@@ -61,10 +61,10 @@ export const AlertCard = ({ alert }: AlertCardProps) => {
 					Severity:{' '}
 					<span
 						className={`font-bold ${severityColors[
-							alert?.severity.toUpperCase() as keyof typeof severityColors
+							alert?.severity?.toUpperCase() as keyof typeof severityColors
 						]!}`}
 					>
-						{alert.severity.toUpperCase()}
+						{alert?.severity?.toUpperCase()}
 					</span>
 				</p>
 				<Link

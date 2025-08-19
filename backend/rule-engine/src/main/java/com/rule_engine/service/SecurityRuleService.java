@@ -1,9 +1,10 @@
 package com.rule_engine.service;
 
-import com.rule_engine.dto.AlertMessage;
-import com.rule_engine.dto.SecurityEvent;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
+
+import com.rule_engine.dto.AlertMessage;
+import com.rule_engine.dto.SecurityEvent;
 
 @Service
 public class SecurityRuleService {
@@ -25,7 +26,7 @@ public class SecurityRuleService {
         }
     }
     
-    private boolean isCriticalThreat(SecurityEvent event) {
-        return "THREAT".equals(event.getType()) && ("CRITICAL".equals(event.getSeverity()) || "HIGH".equals(event.getSeverity()));
+    private boolean isCriticalThreat(SecurityEvent event) {        
+        return "threat".equals(event.getType()) && ("critical".equals(event.getSeverity()) || "high".equals(event.getSeverity()));
     }
 }

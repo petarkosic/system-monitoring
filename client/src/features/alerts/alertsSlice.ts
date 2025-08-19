@@ -20,7 +20,7 @@ const initialState: AlertsState = {
 	filters: {
 		status: 'OPEN',
 		severity: '',
-		service: 'order-service',
+		service: '',
 	},
 	activeFilter: 'ALL',
 	loading: false,

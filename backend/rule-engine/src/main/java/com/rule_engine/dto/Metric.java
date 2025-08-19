@@ -8,13 +8,16 @@ import com.fasterxml.jackson.annotation.OptBoolean;
 
 @Data
 public class Metric {
-    private String _id;
+    private String id;
+
+    private String metricId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", lenient = OptBoolean.TRUE)
     private Date timestamp;
     
     private String service;
     private Integer cpu;
+    private Integer baseMemory;
     private Integer memory;
     private String memoryUnits;
     private Integer disk;
@@ -23,6 +26,4 @@ public class Metric {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", lenient = OptBoolean.TRUE)
     private Date createdAt;
-
-    private String _class;
 }

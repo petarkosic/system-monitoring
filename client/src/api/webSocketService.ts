@@ -1,11 +1,11 @@
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import type { WebSocketAlert } from '../types/alert';
+import type { Alert } from '../types/alert';
 
 let stompClient: Client | null = null;
 
 export const connectWebSocket = (
-	onMessageReceived: (alert: WebSocketAlert) => void,
+	onMessageReceived: (alert: Alert) => void,
 	onError?: (error: string) => void
 ) => {
 	const socket = new SockJS('http://localhost:8083/alerts');
@@ -19,7 +19,7 @@ export const connectWebSocket = (
 
 	stompClient.onConnect = () => {
 		stompClient?.subscribe('/topic/alerts', (message) => {
-			const alert: WebSocketAlert = JSON.parse(message.body);
+			const alert: Alert = JSON.parse(message.body);
 			onMessageReceived(alert);
 		});
 	};
