@@ -22,7 +22,7 @@ const initialState: AlertsState = {
 		severity: '',
 		service: '',
 	},
-	activeFilter: 'ALL',
+	activeFilter: 'OPEN',
 	loading: false,
 	error: null,
 };

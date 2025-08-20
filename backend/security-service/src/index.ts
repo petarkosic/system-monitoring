@@ -14,7 +14,7 @@ const logger = winston.createLogger({
 	transports: [new winston.transports.Console()],
 });
 
-type Severity = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+type Severity = 'low' | 'medium' | 'high' | 'critical';
 
 interface SecurityEvent {
 	eventId: string;
@@ -46,7 +46,7 @@ const SECURITY_EVENTS = [
 			'Biometric login attempt failed for {userId} from {location}',
 			'Unrecognized browser login detected for {userId} from {ip}',
 		],
-		severity: ['MEDIUM', 'HIGH' as const],
+		severity: ['medium', 'high' as const],
 		services: ['auth-service', 'api-gateway'],
 	},
 	{
@@ -60,7 +60,7 @@ const SECURITY_EVENTS = [
 			'OAuth token misuse detected for {userId}',
 			'Access to restricted report {reportName} denied for {userId}',
 		],
-		severity: ['MEDIUM', 'HIGH' as const],
+		severity: ['medium', 'high' as const],
 		services: ['auth-service', 'api-gateway', 'admin-service'],
 	},
 	{
@@ -74,7 +74,7 @@ const SECURITY_EVENTS = [
 			'SSL certificate for {domain} expired',
 			'DNS settings changed for {domain} by {userId}',
 		],
-		severity: ['LOW', 'MEDIUM' as const],
+		severity: ['low', 'medium' as const],
 		services: ['auth-service', 'admin-service', 'config-service'],
 	},
 	{
@@ -88,7 +88,7 @@ const SECURITY_EVENTS = [
 			'HIPAA-protected data accessed by {userId} from {location}',
 			'Large file transfer to external IP {ip} detected',
 		],
-		severity: ['MEDIUM', 'HIGh' as const],
+		severity: ['medium', 'high' as const],
 		services: ['user-service', 'database-service', 'compliance-service'],
 	},
 	{
@@ -102,7 +102,7 @@ const SECURITY_EVENTS = [
 			'DDoS attack detected targeting {service} - {count} requests per second',
 			'Ransomware signature detected in uploaded file by {userId}',
 		],
-		severity: ['HIGH', 'CRITICAL' as const],
+		severity: ['high', 'critical' as const],
 		services: ['api-gateway', 'waf-service', 'ids-service'],
 	},
 ];
