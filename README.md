@@ -2,6 +2,18 @@
 
 An **observability platform** that ingests logs, metrics and security events, evaluates rule-based alerts in real-time and presents everything in a React dashboard with live updates via WebSockets.
 
+<div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+  <div style="display: flex; justify-content: center;">
+    <img src="./client/src/assets/dashboard-page.png" alt='dashboard page' style="width: 500px;  object-fit: contain;" />
+  </div>
+
+  <div style="display: flex; justify-content: center; gap: 20px;">
+    <img src="./client/src/assets/log-event.png" alt='log event' style="width: 300px; max-width: 100%;  object-fit: contain;" />
+    <img src="./client/src/assets/security-event.png" alt='security event' style="width: 300px; max-width: 100%; object-fit: contain;" />
+    <img src="./client/src/assets/metrics-event.png" alt='metrics event' style="width: 300px; max-width: 100%; object-fit: contain;" />
+  </div>
+</div>
+
 ---
 
 ## Table of Contents
