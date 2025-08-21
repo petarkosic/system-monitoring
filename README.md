@@ -8,9 +8,9 @@ An **observability platform** that ingests logs, metrics and security events, ev
   </div>
 
   <div style="display: flex; justify-content: center; gap: 20px;">
-    <img src="./client/src/assets/log-event.png" alt='log event' style="width: 300px; max-width: 100%;  object-fit: contain;" />
-    <img src="./client/src/assets/security-event.png" alt='security event' style="width: 300px; max-width: 100%; object-fit: contain;" />
-    <img src="./client/src/assets/metrics-event.png" alt='metrics event' style="width: 300px; max-width: 100%; object-fit: contain;" />
+    <img src="./client/src/assets/log-event.png" alt='log event' style="width: 200px; max-width: 100%;  object-fit: contain;" />
+    <img src="./client/src/assets/security-event.png" alt='security event' style="width: 200px; max-width: 100%; object-fit: contain;" />
+    <img src="./client/src/assets/metrics-event.png" alt='metrics event' style="width: 200px; max-width: 100%; object-fit: contain;" />
   </div>
 </div>
 
@@ -40,7 +40,7 @@ An **observability platform** that ingests logs, metrics and security events, ev
 
 ## Architecture
 
-![Architecture](./architecture.png 'Architecture')
+![Architecture](./Architecture.png 'Architecture')
 
 ## Quick Start
 
