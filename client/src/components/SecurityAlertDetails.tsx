@@ -47,6 +47,10 @@ export const SecurityAlertDetails = ({ alert }: SecurityAlertDetailsProps) => {
 						<h4 className='text-sm font-medium text-gray-500 mb-1'>User ID</h4>
 						<p>{alert.payload.userId}</p>
 					</div>
+					<div className='md:col-span-2'>
+						<h4 className='text-sm font-medium text-gray-500 mb-1'>Message</h4>
+						<p className='text-sm break-all'>{alert.payload.message}</p>
+					</div>
 				</div>
 
 				{alert.payload.details &&

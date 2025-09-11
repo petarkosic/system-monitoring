@@ -33,6 +33,10 @@ export const LogAlertDetails = ({ alert }: LogAlertDetailsProps) => {
 						</h4>
 						<p>{format(new Date(alert?.payload?.timestamp), 'PPpp')}</p>
 					</div>
+					<div className='md:col-span-2'>
+						<h4 className='text-sm font-medium text-gray-500 mb-1'>Message</h4>
+						<p>{alert.payload.message}</p>
+					</div>
 				</div>
 
 				{alert.payload.httpDetails && (
