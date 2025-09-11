@@ -79,12 +79,14 @@ class AIAlertAgent:
         1. Problem Pattern: A brief description of the problem this solution addresses
         2. Solution Steps: Detailed, step-by-step instructions to resolve the issue
         3. Expected Outcome: What should happen if this solution works
+        4. Effectiveness Score: A number between 0 and 100, with 100 being the most effective
 
         
         IMPORTANT: Your response MUST be a valid JSON array with objects containing these exact field names:
         - problem_pattern (string)
         - solution_steps (array of strings)
         - expected_outcome (string)
+        - effectiveness_score (number)
 
         Example of valid response format:
         [
@@ -95,7 +97,8 @@ class AIAlertAgent:
                     "2. Identify memory-hungry processes",
                     "3. Restart the service if it's leaking memory"
                 ],
-                "expected_outcome": "Memory usage returns to normal levels"
+                "expected_outcome": "Memory usage returns to normal levels",
+                "effectiveness_score": 80
             }}
         ]
 
