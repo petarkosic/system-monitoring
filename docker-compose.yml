@@ -35,6 +35,19 @@ services:
     networks:
       - sm-network
 
+  agent:
+    build: ./agent
+    container_name: agent
+    environment:
+      - API_KEY=${API_KEY}
+      - BASE_URL=${BASE_URL}
+    ports:
+      - 8000:8000
+    depends_on:
+      - alert-manager
+    networks:
+      - sm-network
+
   data-collector:
     build: ./backend/data-collector
     container_name: data-collector
